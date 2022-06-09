@@ -1,4 +1,5 @@
 import { CMS_NAME } from '../lib/constants'
+import Link from 'next/link';
 
 export default function Intro() {
   return (
@@ -6,15 +7,21 @@ export default function Intro() {
       <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
         Caleb Gill.
       </h1>
-      <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        A statically generated blog example using{' '}
-        <a
-          href="https://nextjs.org/"
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          Next.js
-        </a>{' '}
-        and {CMS_NAME}.
+      <h4 className="text-center md:text-left font-bold text-lg mt-16 md:pl-8 word-spacing:40px">
+      
+      <Link href="/pages/anintro">
+        <a>About   </a>
+      </Link>{' '}{' '}{' '}
+      
+      <Link href="/resume">
+        <a>Resume   </a>
+      </Link>{' '}{' '}{' '}
+
+      <Link href="/contact">
+        <a>Contact</a>
+      </Link>
+
+        
       </h4>
     </section>
   )
