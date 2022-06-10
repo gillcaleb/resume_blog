@@ -1,16 +1,17 @@
-import Layout from '../components/layout'
-import Container from '../components/container'
-import Header from '../components/header'
-import Footer from '../components/footer'
+import React from "react";
+import Layout from "../components/layout";
+import Container from "../components/container";
+import Experience from "../components/experience";
+import Header from "../components/header";
 
-const Resume = () => (
-  <Layout>
-    <Container>
-        <Header />
-        <h1>About page</h1>
-        <Footer />
+export default function Resume() {
+  return (
+    <Layout>
+    
+    <Container title="Caleb Gill experience">
+      <Header />
+      <Experience />
     </Container>
-  </Layout>
-)
-
-export default Resume
+    </Layout>
+  );
+}

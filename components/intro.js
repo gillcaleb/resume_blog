@@ -9,7 +9,7 @@ export default function Intro() {
       </h1>
       <h4 className="text-center md:text-left font-bold text-lg mt-16 md:pl-8 word-spacing:40px">
       
-      <Link href="/pages/anintro">
+      <Link href="/posts/anintro">
         <a>About   </a>
       </Link>{' '}{' '}{' '}
       
