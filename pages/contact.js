@@ -7,7 +7,6 @@ import Header from "../components/header";
 export default function contact() {
   return (
     <Layout>
-        
         <Container>
             <Header />
             <ContactForm />
