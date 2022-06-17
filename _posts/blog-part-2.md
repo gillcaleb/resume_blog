@@ -24,5 +24,11 @@ The example code was extremely easy to deploy thanks to the very thorough and ea
 
 ## Contact Page 
 
+## Running in the Background
+If you recall from the first post, we have an SSH tunnel set up to listen on port 3000 on our Raspberry Pi. Because I don't want to leave a terminal open with that process running, I used `pm2` to background the process. Here is the command:
+
+```
+pm2 start npm --name "blog" -- start
+```
 
 

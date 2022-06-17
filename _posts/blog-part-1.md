@@ -35,7 +35,7 @@ I did some research on how to set up a persistent ssh tunnel in the background a
 
 ```
 sudo apt-get install autossh
-autossh -f -N -T -R 5000:0.0.0.0:3000 piconnect@$REMOTE_ADDRESS
+autossh -f -N -T -R 5000:0.0.0.0:3000 piconnect@$REMOTEADDRESS -o "ServerAliveInterval 30" 
 ```
 You'll notice here that I replacted port `80` with port `3000` as that is the one I intend host the application on. 
 
