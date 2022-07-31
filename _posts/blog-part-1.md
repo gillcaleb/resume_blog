@@ -7,12 +7,12 @@ ogImage:
   url: '/assets/blog/blog-part-1/cover.jpg'
 ---
 
-Welcome! In this series I plan to catalogue my adventures in setting up a personal blog/portfolio website using one of the many Raspberry Pis I have lying about the house. 
+Welcome! In this series I plan to catalogue my adventures in setting up a personal blog/portfolio website using one of the many Raspberry Pis I have lying about the house.
 
 I'm going to split the documentation for how I built this site into a couple of different posts. The first will deal more with the networking setup and the second with the actual front-end type work. I've included my sources at the bottom for the various projects I pulled code from or used as examples.
 
 ## Reverse Proxy
-Given that I wasn't too keen on publishing my home IP address, I did some research on potential alternatives, eventually landing on an ssh tunnel to a reverse proxy on Google Cloud.[^1] This tutorial was relatively straightforward and by the end of it, I had an HTML page that I could access by typing in the public-facing IP address on Google Cloud. 
+Given that I wasn't too keen on publishing my home IP address, I did some research on potential alternatives, eventually landing on an ssh tunnel to a reverse proxy on Google Cloud.[1] This tutorial was relatively straightforward and by the end of it, I had an HTML page that I could access by typing in the public-facing IP address on Google Cloud. 
 
 ## DNS
 It's been a couple of years now, but a while back I purchased `calebgill.com` for the fun of it (hey, it was only $15). I hadn't been using it, so I felt like this was an appropriate time to dust it off. I originally bought it on `Domain.com`, but since I like to have everything in one place, I went through the transfer process to get it moved to Google Domains.[^2] Honestly I was expecting it to be an onerous process but it was relatively straightforward and the transfer completed after just a couple of days. 
@@ -33,17 +33,17 @@ If you used the reverse proxy tutorial I listed above, it means you'll have to r
 
 I did some research on how to set up a persistent ssh tunnel in the background and the general consensus seemed to be that the `autossh` utility was the way to go. The commands  were relatively trivial: 
 
-```
-sudo apt-get install autossh
-autossh -f -N -T -R 5000:0.0.0.0:3000 piconnect@$REMOTEADDRESS -o "ServerAliveInterval 30" 
-```
-You'll notice here that I replacted port `80` with port `3000` as that is the one I intend host the application on. 
+```sudo apt-get install autossh```
+
+```autossh -f -N -T -R 5000:0.0.0.0:3000 piconnect@$REMOTEADDRESS -o "ServerAliveInterval 30" ```
+
+You'll notice here that I replacted port `80` with port `3000` as that is the one I intend to host the application on. 
 
 A potential future improvement is setting up this commend as a systemd service that launches at device boot (that way if my pi ever crashed or powered down, I wouldn't have to manually kick off the process again)
 
 Check out [`Blog Part 2`](/posts/blog-part-2) if you're interested in getting an actual application up and running
 
 
-[^1]: https://www.tomshardware.com/how-to/host-public-website-raspberry-pi
+[1]: https://www.tomshardware.com/how-to/host-public-website-raspberry-pi
 [^2]: https://support.google.com/domains/answer/3251236?hl=en&visit_id=637908117935174920-872846835&ref_topic=9003137&rd=1
 [^3]: https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/
