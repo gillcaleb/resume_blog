@@ -16,7 +16,7 @@ export default function Intro() {
           <Link href="/posts/intro">
             <a
               className={`text-base  ${
-                router.asPath === "/about"
+                router.asPath === "/posts/intro"
                   ? "text-gray-800 font-bold dark:text-gray-400"
                   : "text-gray-600 dark:text-gray-300 font-normal "
               }`}
@@ -93,12 +93,12 @@ export default function Intro() {
           </Link>
         </div>
         <div className="space-x-8 block md:hidden mt-4">
-          <Link href="/about">
+          <Link href="/posts/intro">
             <a className="text-base font-normal text-gray-600 dark:text-gray-300">
               About
             </a>
           </Link>
-          <Link href="/Resume">
+          <Link href="/resume">
             <a className="text-base font-normal text-gray-600 dark:text-gray-300">
               Resume
             </a>

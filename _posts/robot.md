@@ -18,7 +18,7 @@ I suppose I should have paid slightly closer attention to the dimensions and pic
 
 I already mentioned it, but for the controller I went with a Raspberry Pi Zero W - if you haven't seen from my other blog posts, I'm a big Pi fanboy and the Zero is no exception. Small, nimble, but capable of just about everything for the scope of this project. 
 
-Ok yeah yeah whatever. Let's get to the real engineering part.
+Yeah yeah whatever. Let's get to the real engineering part.
 
 The first item on my agenda beyond buying basic components was selecting a driver capable that was suitable for the task at hand. I ended up going with the bulkier L298N. Dude's got a serious heatsink. There are plenty of other options out there (most with much smaller footprints) but because I was trying to minimize the amount of soldering in this project I went with this one. 
 
