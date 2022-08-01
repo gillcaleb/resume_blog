@@ -24,9 +24,9 @@ In order to accomplish this, I edited the existing `Intro` component, changing o
 ## Footer Updates
 First thing I did to improve the footer was remove the boilerplate code that was previous there and to adjust the size of the footer (I like a narrow ribbon). The two things I wanted to accomplish in the footer were:
 
-1. Setup a link to my social media accounts (and since all I have is LinkedIn that should be pretty easy). 
+First: Setup a link to my social media accounts (and since all I have is LinkedIn that should be pretty easy). 
 
-2. Enable a lightmode/darkmode button. 
+Second: Enable a lightmode/darkmode button. 
 
 In order to accomplish these items in one step, I followed the tutorial I found online by Manu Arora [^1] (I also adapted the Resume and Contact page from code that he provided as well).
 
@@ -39,7 +39,7 @@ So far so good - but how do we handle dark mode? As a newbie when it comes to we
 Boom. That's it. Granted, it's not totally perfect - there are still elements of the page that don't behave quite right (I assume the color change isn't being inhereited hence why they stay light/dark at inappropriate times). All that can be sorted out later though. With just a few lines of code we've got dark mode working at ~90%. 
 
 ## Resume and Contact Page
-Again, both of these were adapted from the Manu Arora projects given that I don't quite yet have the React chops to build stuff from scratch. In the end though I was very pleased with how they both turned out. I continue to be impressed at how powerful the components in React can be when building something like this. That's the power of D.R.Y I suppose.
+Again, both of these were adapted from the Manu Arora projects given that I don't quite yet have the React chops to build stuff from scratch. In the end though I was very pleased with how they both turned out. I continue to be impressed at how powerful the components in React can be when building something like this. That's the beauty of D.R.Y I suppose.
 
 For the contact page I originally wanted to set it up to automatically send me an email with the salient information when a user submits data. Upon doing a fair amount of research though, it seems like Gmail locked down this type of capability a while back so tools like `nodemailer` don't really work anymore. I went down the route of exploring managed services (namely SendGrid which is now owned by Twilio) but it started to consume more time than I was willing to dedicate towards it (there was an invovled verification process to prove I wasn't a spammer which I guess is a good thing). In the end I just put up some basic JS handling code which clears the form and says "thanks for submitting" on submit without actually handling the data. If you'd really like to get in touch, LinkedIn is your best bet :)  
 
