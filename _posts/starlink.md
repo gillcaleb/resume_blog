@@ -14,7 +14,7 @@ I'm a big fan of all things space related - whether it's astronomy, rocket tech,
 
 Ok ok enough backstory already. The idea for this project was to use the publically available TLE (Two Line Element) data on a handy website called [`Celestrak`](https://celestrak.org/NORAD/elements/gp.php?GROUP=starlink&FORMAT=tle) to generate the real-time positions of every satellite in the Starlink constellation. For those of us who aren't orbital mechanics wizards, the python PyEphem module makes this kind of predictive analysis relatively trivial to do. 
 
-Because I'm a very visual person, I wanted to be able to disply this data somewhere useful, so I used the KML (keyhole markup language) library in Python to generate a file that would be able to render in Google Earth. 
+Because I'm a very visual person, I wanted to be able to display this data somewhere useful, so I used the KML (keyhole markup language) library in Python to generate a file that would be able to render in Google Earth. 
 
 Using a relatively basic Django setup (forgive my lack of a ~fancy frontend), I was then able to serve this file every few seconds to achieve a real-time update of the consetellation in Google Earth. Check it out:
 
@@ -33,11 +33,11 @@ Looks like we've found a relatively recent lauch as evidenced by the tight clust
 
 
 ## Bonus Session - Kubernetify 
-To give a little backstory, I decided to extend this project a little bit further to practice my kuberentes skills. If you're interested you can checkout the code, but the basic components were the django deployment itself (I created a very basic Dockerfile for it), along with a celery, flower, redis, and postgres deployments. The Celery and Redis deployments powered some of my backend tasks (namely updating the constellation positions and occasionally doing a DB pull to refresh the TLE data). Of course the postgres deployment was my database. 
+To give a little backstory, I decided to extend this project a little bit further to practice my kubernetes skills. If you're interested you can checkout the code, but the basic components were the Django deployment itself (I created a very basic Dockerfile for it), along with Celery, Flower, Redis, and Postgres deployments. The Celery and Redis deployments powered some of my backend tasks (namely updating the constellation positions and occasionally doing a DB pull to refresh the TLE data). Of course the Postgres deployment was my database. 
 
-It took a little bit of time but by the end I was relatively pleased with the results - here's a screen grab of all the resources associated with the project. You can find my implementation underneat the /kuberentes folder in the k8s-deploy branch. 
+It took a little bit of time but by the end I was relatively pleased with the results - here's a screen grab of all the resources associated with the project. You can find my implementation underneath the /kuberentes folder in the k8s-deploy branch. 
 
 ![kubectl](/assets/blog/starlink/kubectl.jpg)
 
 ## Wrapping Up
-So there you have it. There are tons of ways you can continue to adapt this project (for example, it's desinged to be very easy to change which constellation you want to look it...GPS or satellite TV for instance). If nothing else I find this to be a very helpful educational tool when it comes to understanding orbits (difference between LEO vs. geosynchronos etc.). I hope you enjoyed it! 
+So there you have it. There are tons of ways you can continue to adapt this project (for example, it's desinged to be very easy to change which constellation you want to look it...GPS or satellite TV for instance). If nothing else I find this to be a very helpful educational tool when it comes to understanding orbits, like the difference between LEO vs. geosynchronos etc. I hope you enjoyed it! 
