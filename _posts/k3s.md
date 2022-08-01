@@ -22,7 +22,7 @@ The install script is easy. Assuming you have a headless setup on your Pis, just
 
 `curl -sfL https://get.k3s.io | sh -`
 
-Very important note: (and one that I screwed up the first time though) - if you do not have unique hostnames on your various Pis (again I'm lazy so I hadn't changed them) then you MUST pass a `K3S_NODE_NAME` environment variable with a unique name when you run this script. That would make the command something like this:
+Very important note: (and one that I screwed up the first time) - if you do not have unique hostnames on your various Pis (again I'm lazy so I hadn't changed them) then you MUST pass a `K3S_NODE_NAME` environment variable with a unique name when you run this script. That would make the command something like this:
 
 `curl -sfL https://get.k3s.io | K3S_NODE_NAME=<name of server instance> sh -`
 
