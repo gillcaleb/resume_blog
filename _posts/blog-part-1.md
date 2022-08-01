@@ -20,14 +20,14 @@ It's been a couple of years now, but a while back I purchased `calebgill.com` fo
 ## Let's Encrypt and Certbot
 So at this point, we have a Raspberry Pi hosting our website that is tunnelling to our reverse proxy on Google Cloud which is published under our custom DNS name (in my case, `calebgill.com`)
 
-If we were to navigate to this URL in the browser though, we would get the dreaded "not-https" warning from out browser as there is not currently any cert associated with out site. Let's Encrypt to the rescue! 
+If we were to navigate to this URL in the browser though, we would get the dreaded "not-https" warning from our browser as there is not currently any cert associated with our site. Let's Encrypt to the rescue! 
 
-If you're looking for a low-cost solution (there are plenty of paid options out there) Let's Encrypt is your best friend as it is completely free. I followed these instructions to install a cert and get it added to my NGINX reverse proxy.[^3]
+If you're looking for a low-cost solution (there are plenty of paid options out there) Let's Encrypt is your best friend as it is completely free. I followed these instructions to install a cert and got it added to my NGINX reverse proxy.[^3]
 
 One extremely important detail is the addition of the `certbot` utility. If you're like me, the idea of manually updating certs every 90 days means that my cert will only ever work for 90 days ;). Thankfully, if you set up a certbot cron job, you never have to worry about expirations again. I love automation. 
 
 ## Background the SSH Tunnel
-Awesome. So now you've got a pi-hosted site (without exposing your home IP), that is resolved by a custom DNS name and is TLS enabled.
+Awesome -- so now you've got a pi-hosted site (without exposing your home IP) that is resolved by a custom DNS name and is TLS enabled.
 
 If you used the reverse proxy tutorial I listed above, it means you'll have to run the  `establish_remote_connection.sh` in order to serve up your website. This creates a bit of a nuisance - namely the fact that it runs as a foreground process and the spawned SSH tunnel will occasionally crash, leaving the site with a 502 error (not the best of looks for a site designed to impress potential employers). 
 
@@ -39,7 +39,7 @@ I did some research on how to set up a persistent ssh tunnel in the background a
 
 You'll notice here that I replacted port `80` with port `3000` as that is the one I intend to host the application on. 
 
-A potential future improvement is setting up this commend as a systemd service that launches at device boot (that way if my pi ever crashed or powered down, I wouldn't have to manually kick off the process again)
+A potential future improvement is setting up this commend as a systemd service that launches at device boot (that way, if my pi ever crashed or powered down, I wouldn't have to manually kick off the process again).
 
 Check out [`Blog Part 2`](/posts/blog-part-2) if you're interested in getting an actual application up and running
 
