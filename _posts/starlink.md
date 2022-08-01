@@ -18,7 +18,7 @@ Because I'm a very visual person, I wanted to be able to display this data somew
 
 Using a relatively basic Django setup (forgive my lack of a ~fancy frontend), I was then able to serve this file every few seconds to achieve a real-time update of the consetellation in Google Earth. Check it out:
 
-![starlink_constellation](/assets/blog/starlink/cover.jpg)
+![starlink_constellation](/assets/blog/starlink/constellation.jpg)
 
 Pretty cool right? It's amazing what kind of insights you can achieve from just a simple data file and a little predictive analysis. For example, let's check out the poles:
 
