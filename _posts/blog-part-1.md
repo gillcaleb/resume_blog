@@ -2,7 +2,7 @@
 title: 'Blog Setup: Part 1'
 excerpt: 'An overview of the networking and environment setup for hosting a Next.js blog app on a Raspberry Pi'
 coverImage: '/assets/blog/blog-part-1/cover.jpg'
-date: '2021-06-13'
+date: '2022-06-13'
 ogImage:
   url: '/assets/blog/blog-part-1/cover.jpg'
 ---

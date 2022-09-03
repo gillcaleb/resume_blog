@@ -2,7 +2,7 @@
 title: 'Blog Setup: Part 3 - DevOps Time! '
 excerpt: 'On containerization, deployment, and otherwise preparing the example blog application for deployment into the cloud'
 coverImage: '/assets/blog/blog-part-3/cover.jpg'
-date: '2021-07-27'
+date: '2022-07-27'
 ogImage:
   url: '/assets/blog/blog-part-3/cover.jpg'
 ---
