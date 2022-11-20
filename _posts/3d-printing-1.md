@@ -69,4 +69,18 @@ One thing that gave me pause as I was going through this process was the listed 
 
 ## Two Weeks Later And...
 
+Well, here it is. 
+
+![irl](/assets/blog/3d-printing-1/irl.jpg)
+
+I'd give myself a B- on the whole. It looks (more or less) like what my design did. That being said, I feel like I learned some valuable lessons.
+
 ## Lessons Learned
+
+First, you have to *think* like a 3D printer does. Imagine the little printing arm moving back and forth. At the base of the structure, it will be really precise and solid. As you build up though, especially for spindly elements like the arms of the, it becomes more and more tenuous. I can't stress this enough. The orientation of your design also matters tremendously for this reason. I kind of had an inkling that this would happen - especially given how many designs on the internet are split up into multiple different files. 
+
+Second: measure twice, cut once. I accidentially flipped the location of the support screw holes for the Pi. Simple mistake but it underscores the importance of having your design proofed before you let 'er rip. 
+
+Third, the margins were definitely too small. Maybe some day entry level 3D printers will be able to fabricate margins of < 3mm reliably, but this is not that day. Granted, it's not *horrible* but definitely weak (due in part to the first point).
+
+In the end though I had a lot of fun learning how to do it and gained some valuable experience in the process. Happy printing! 
