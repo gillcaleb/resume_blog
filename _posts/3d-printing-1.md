@@ -73,7 +73,7 @@ Well, here it is.
 
 ![irl](/assets/blog/3d-printing-1/irl.jpg)
 
-I'd give myself a B- on the whole. It looks (more or less) like what my design did. That being said, I feel like I learned some valuable lessons.
+I'd give myself a B- on the whole (it looked a little better at the start - this was after a bit of rough handling). It looks (more or less) like what my design did. That being said, I feel like I learned some valuable lessons.
 
 ## Lessons Learned
 
