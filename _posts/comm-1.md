@@ -1,6 +1,6 @@
 ---
 title: 'Communication in the age of ChatGPT'
-excerpt: 'And 5 common phrases I've seen used incorrectly'
+excerpt: 'And five common phrases I've seen used incorrectly'
 coverImage: '/assets/blog/comm-1/cover.png'
 date: '2023-02-19'
 ogImage:
