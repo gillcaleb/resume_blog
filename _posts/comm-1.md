@@ -1,6 +1,6 @@
 ---
 title: 'Communication in the age of ChatGPT'
-excerpt: 'On the importance of cultivating communication and 5 vocabulary mistakes I've seen recently'
+excerpt: 'On the importance of cultivating communication'
 coverImage: '/assets/blog/comm-1/cover.png'
 date: '2023-02-19'
 ogImage:
