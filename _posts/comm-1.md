@@ -1,10 +1,10 @@
 ---
 title: 'Communication in the age of ChatGPT'
 excerpt: 'On the importance of cultivating extemporaneous communication abilites and five vocabulary mistakes I've seen recently'
-coverImage: '/assets/blog/vocab-1/cover.png'
+coverImage: '/assets/blog/comm-1/cover.png'
 date: '2022-07-29'
 ogImage:
-  url: '/assets/blog/vocab-1/cover.png'
+  url: '/assets/blog/comm-1/cover.png'
 ---
 I'm going to deviate from my typical content to dedicate a bit of time to do some lighthearted opining on an often underrated topic within engineering: communication. 
 
