@@ -4,7 +4,7 @@ import Container from '../../components/container'
 import PostBody from '../../components/post-body'
 import Header from '../../components/header'
 import PostHeader from '../../components/post-header'
-import MortgageRateCard from '../components/post-30yr-mortgage';
+import MortgageRateCard from '../components/post-mortgage';
 import Layout from '../../components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
 import PostTitle from '../../components/post-title'
