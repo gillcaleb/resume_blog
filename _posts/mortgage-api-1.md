@@ -16,17 +16,17 @@ This post is going to tackle one of the most important aspects of full stack dev
 ## FastAPI
 I love FastAPI. It does a lot of things well and is exceptional when it comes to rapid prototyping. The fact that I could have the API (albeit a very simple one) done in less than 20 minutes is awesome. The documention is also quite extensive. For today's example I went as bare bones as possible. Just a main.py file with a single function called `mortgage_rate`. Below is the bones of the code:
 
-  from fastapi import FastAPI
-  import requests
+    from fastapi import FastAPI
+    import requests
 
-  app = FastAPI()
+    app = FastAPI()
 
-  @app.get("/mortgage_rate")
-  async def get_mortgage_rate():
-    # URL of the Freddie Mac website to scrape
-    url = "https://www.freddiemac.com/pmms/pmms_archives"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
-    response = requests.get(url, headers=headers)
+    @app.get("/mortgage_rate")
+    async def get_mortgage_rate():
+      # URL of the Freddie Mac website to scrape
+      url = "https://www.freddiemac.com/pmms/pmms_archives"
+      headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+      response = requests.get(url, headers=headers)
 
 There you have it. That's a FastAPI app which fetches the Freddie Mac page in question without too much hassle. I further added a BeautifulSoup package that extracts the actual mortgage rate from the path in question. 
 
@@ -35,7 +35,7 @@ In order to deploy this I whipped up a basic Dockerfile that exposes port 8000 a
 ## Next.js
 There are plenty of places you could integrate this into the front end. I was looking for the most low-effort proof of concept that I could think of. What I did was create a component called mortgage-rate.js which (along with other basic scaffolding), made the following call:
 
-  const response = await fetch("https://calebgill.com/api/mortgage_rate");
+    const response = await fetch("https://calebgill.com/api/mortgage_rate");
  
  We'll come back to that API in a second. Next, I added a conditional called showMortgageRate which is embedded in the .md file's metadata. If the conditional isn't present (or is false), then no mortgage-rate-card is renderered. This probably isn't the best pattern for large scale app development but for our immediate purposes it works just fine. 
 
