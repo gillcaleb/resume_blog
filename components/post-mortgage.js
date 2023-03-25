@@ -6,7 +6,7 @@ function MortgageRateCard() {
 
   useEffect(() => {
     async function fetchMortgageRate() {
-      const response = await fetch("http://localhost:8000/mortgage_rate");
+      const response = await fetch("https://calebgill.com/api/mortgage_rate");
       const data = await response.json();
       setMortgageRate(data.mortgage_rate);
       setDate(data.date);
