@@ -1,7 +1,7 @@
 ---
 title: 'FastAPI Intro'
 excerpt: 'Basic FastAPI integration'
-coverImage: '/assets/blog/mortgage-api-1.md/cover.png'
+coverImage: '/assets/blog/mortgage-api-1/cover.png'
 date: '2023-03-17'
 ogImage:
   url: '/assets/blog/mortgage-api-1/cover.png'
