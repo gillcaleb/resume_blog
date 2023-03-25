@@ -4,6 +4,7 @@ import Container from '../../components/container'
 import PostBody from '../../components/post-body'
 import Header from '../../components/header'
 import PostHeader from '../../components/post-header'
+import MortgageRateCard from '../../components/post-mortgage';
 import Layout from '../../components/layout'
 import { getPostBySlug, getAllPosts } from '../../lib/api'
 import PostTitle from '../../components/post-title'
@@ -13,6 +14,9 @@ import markdownToHtml from '../../lib/markdownToHtml'
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter()
+
+  const showMortgageRate = post.showMortgageRate === true;
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
@@ -37,6 +41,7 @@ export default function Post({ post, morePosts, preview }) {
                 date={post.date}
                 
               />
+              {showMortgageRate && <MortgageRateCard />}
               <PostBody content={post.content} />
             </article>
           </>
@@ -54,6 +59,7 @@ export async function getStaticProps({ params }) {
     'content',
     'ogImage',
     'coverImage',
+    'showMortgageRate'
   ])
   const content = await markdownToHtml(post.content || '')
 
