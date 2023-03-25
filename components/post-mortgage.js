@@ -20,7 +20,7 @@ function MortgageRateCard() {
         <h5 className="card-title">Current Mortgage Rate</h5>
         <p className="card-text">
           {date && `As of ${date}: `}
-          {mortgageRate ? `${mortgageRate}%` : "Loading..."}
+          {mortgageRate ? `${mortgageRate}` : "Loading..."}
         </p>
       </div>
     </div>
