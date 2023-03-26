@@ -25,7 +25,6 @@ I love FastAPI. It does a lot of things well and is exceptional when it comes to
     async def get_mortgage_rate():
       # URL of the Freddie Mac website to scrape
       url = "https://www.freddiemac.com/pmms/pmms_archives"
-      headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
       response = requests.get(url, headers=headers)
 
 There you have it. That's a FastAPI app which fetches the Freddie Mac page in question without too much hassle. I further added a BeautifulSoup package that extracts the actual mortgage rate from the path in question. 
