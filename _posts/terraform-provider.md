@@ -1,5 +1,5 @@
 ---
-title: 'Sprinkler System Terraform Provider'
+title: 'Writing a Terraform Provider For My Sprinkler System'
 excerpt: 'Because what is the point of Terraform if you do not use it to terraform'
 coverImage: '/assets/blog/terraform-provider/cover.jpg'
 date: '2024-07-09'
@@ -55,6 +55,12 @@ Finally, I wanted to test it locally prior to including it into the provider. Si
 Once I had all that in place I figured it was time to give it a test. I ran `go run main.go`, sprinted to the front of the house and, lo and behold, the front flower bed sprinklers were going full blast. Awesome. 
 
 ## Writing the Provider 
+
+I won't lie, the idea of starting from a blank slate with my provider was a little intimidating. Thankfully, [Hashicorp has an excellent example repo and series of tutorials](https://developer.hashicorp.com/terraform/tutorials/providers-plugin-framework/providers-plugin-framework-provider) where they build a mock provider. For the sake of brevity I'll stick to high level concepts I took away after setting up my provider. 
+
+My primary goal was to implement a single resource,`bhyve_zone`, that would accept a ZoneID and a number of minutes as the input. 
+
+**Schema is important**. Schemas are defined for the root provider itself, along with Data and Resources as well. If you don't have a solid idea as to *how* your data needs to be structured and the format in which it is expected then you need to take a step back and re-evaluate all the different configuration possibilities. In my case this was pretty simple: for the provider it was just the login information and for the bhyve_zone resource it was a ZoneID and a number of Minutes. For the resource I also figured I'd play around with the Terraform concept of 'Computed' attributes - these are values that can not be directly manipulated by the user. I used the example attribute from the tutorial library: last_updated, in case I wanted to know when a particular sprinkler last ran. 
 
 ## Closing Thoughts
 
