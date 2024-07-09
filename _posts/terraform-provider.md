@@ -1,13 +1,13 @@
 ---
 title: 'Sprinkler System Terraform Provider'
-excerpt: 'Because what's the point of Terraform if you can't use it to terraform'
+excerpt: 'Because what is the point of Terraform if you do not use it to terraform'
 coverImage: '/assets/blog/terraform-provider/cover.jpg'
 date: '2024-07-09'
 ogImage:
   url: '/assets/blog/terraform-provider/cover.jpg'
 ---
 
-This past spring, I had an Orbit Bhyve Outdoor Irrigation system timer added to my house. I've never owned an irrigation system before and now that it's operational I've been having wayyyyy too much fun playing around with the different settings. The timer comes with a relatively straightforward IPhone app and web interface that lets you do things like set schedules and run ad hoc sprinkler sessions. 
+This past spring, I had an Orbit Bhyve Outdoor system timer added to my home's sprinkler system. I've never owned an irrigation system before and now that it's operational I've been having wayyyyy too much fun playing around with the different settings. The timer comes with a relatively straightforward IPhone app and web interface that lets you do things like set schedules and run ad hoc sprinkler sessions. 
 
 Most folks would probably just set a schedule and let it do it's thing, but as I was tinkering with my lawn a few weeks ago, it got me thinking: could I use Terraform to control my sprinkler system? After all - why do things the easy way when you can spend hours building redundant automation? All jokes aside, I'm always looking for ways to expand my breadth and depth of understanding of the tech I use on a daily basis and I'm also a firm believer that you learn best when you're having fun. This project seemed like a great opportunity to do both. 
 
@@ -15,20 +15,52 @@ Most folks would probably just set a schedule and let it do it's thing, but as I
 
 Before I set about starting, I wanted to make sure that some fundamental components were in place for this to be a feasible project:
 
-1. That a Terraform Provider didn't already exist. While this wasn't a hard requirement, it definitely takes the wind out of your sails a bit to know you're reinventing the wheel. Turns out that there was not one, which wasn't terribly surprising given that it's a somewhat obscure piece of yard tech. 
-2. API Access and documentation. As I was doing my research, I quickly came to the conclusion that the Orbit API is *not* officially documented. However, there are a couple of very clever people out there who have set about reverse engineering some of the imporant API calls and have used it to build their own clients. I found [this JS implementation by Brian Armstrong](https://github.com/blacksmithlabs/orbit-bhyve-remote) to be immensely helpful. 
+1. That a Terraform Provider didn't already exist. While this wasn't a hard and fast requirement, it definitely takes the wind out of your sails a bit to know you're reinventing the wheel. Turns out that there was not one, which wasn't terribly surprising given that it is a somewhat obscure piece of yard tech. 
+2. API Access and documentation. As I was doing my research, I quickly came to the conclusion that the Orbit API is *not* officially documented. However, there are a couple of very clever people out there who have set about reverse engineering some of the imporant API calls and have used it to build their own clients. I found [this JS implementation by Brian Armstrong](https://github.com/blacksmithlabs/orbit-bhyve-remote) to be immensely helpful in building my own client. 
 
-So far so good! Before we go any further, it's important to lay a bit of the ideological groundwork for what a Terraform provider is and how you interact with it. Terraform, at its core, is essentially a finite state machine: you track state and change that state based on a series of inputs and outputs. In order to perform that state change, you need a way to interact with the end resources themselves (in our case, a sprinkler system). This is where your API client comes into play. The first step in writing a Terraform provider is writing an API client that integrates well with the CRUD operations and reconciliations that the Terraform provider will eventually mediate. A well written client makes the Terraform provider implementation far more seamless. That's a sentiment that's widely shared across the community as far as I can tell and could be distilled down to the following: shove all your API weirdness into the internals of the client. 
+So far so good! Before we go any further, it's important to lay a bit of the ideological groundwork for what a Terraform provider is and how you interact with it. Terraform, at its core, is essentially a finite state machine: you track state and change that state based on a series of inputs and outputs. In order to perform that state change, you need a way to interact with the end resources themselves (in our case, a sprinkler system). This is where your API client comes into play. The first step in writing a Terraform provider is writing an API client that integrates well with the CRUD operations and reconciliations that the Terraform provider will eventually mediate. A well written client makes the Terraform provider implementation far more seamless. That's a sentiment that's widely shared across the community and I've heared it distilled down to the following: shove all your API weirdness into the internals of the client. 
 
 ## Writing an API Client
 
-Terraform providers (and their associated clients) are written almost exclusively in Golang. So the first 
+Terraform providers (and their associated clients) are written almost exclusively in Golang, so the first action I took was to port the JS implementation above to Go. A few notes on this process:
+
+- I pretty quickly discovered that the Orbit API uses WebSockets. This seemed like a rather strange design choice given the system. The interaction consists almost entirely of client initiated requests and the replies from the server (Me: "Turn on the zone 3 for 5 minutes!", Sprinkler System "OK!"). It's also a front yard sprinkler system...not the kind of tech that should peristent, bidrectional communication. I'm still not sure why the didn't just use a REST API. Oh well. I tried to obscure the WS implementation as much as possible by making it into it's own package that was then invoked by client package to make the interface as clean as possible. 
+- ChatGPT was a HUGE help in doing the port. I just pointed it at the source repo and said "convert this to Golang" and it got it >90% correct on the first try. Everyone's got their "take" on LLMs but for routine, somewhat mundane tasks like this, it saved me hours of work in just a few seconds. Sure, it hallucinated a couple of functions and libraries but those are pretty easy to weed out. It's a great feeling getting to work on the stuff that most interests you while leaving the drudgery to automation. 
+
+It's been a while since I've written anything substantive in Go, so I was a little rusty on some of the syntax. For the scope of this project I was mainly interested in one action: turning on a sprinkler. Under the hood, the API call for this action is pretty straightforward - you just need to pass it a ZoneID and the number of minutes you want it to run, along with some static values. I called this function `StartZone`. We'll see in a second, but the API client ideally supports CRUD operations. The "create" and "update" in my case are the same function: `StartZone`, as calling `StartZone` on a running zone just updates the time to the new value. 
+
+```
+func (c *Client) StartZone(zoneId, minutes int) error {
+    conn, err := c.ws.Connect(c.token, c.config.DeviceId)
+    if err != nil {
+        return err
+    }
+    return conn.WriteJSON(map[string]interface{}{
+        "event":     "change_mode",
+        "mode":      "manual",
+        "device_id": c.config.DeviceId,
+        "timestamp": time.Now().Format(time.RFC3339),
+        "stations": []map[string]interface{}{
+            {"station": zoneId, "run_time": minutes},
+        },
+    })
+}
+```
+
+
+There was also a `StopZone` functions (which just turns off all sprinklers), which was a nice candidate for the "delete" operation. The "read" call was a bit tricky because there wasn't really an equivalent operation available against the API that I could find. I ended up just stubbing out a `GetZone` function that returns a static value. 
+
+Finally, I wanted to test it locally prior to including it into the provider. Since I was using my personal Orbit login creds I wanted to be careful not to commit them back to the repo (which would be very embarrasing and would also give anyone the ability to turn on my sprinklers). I used the Viper library to setup a config.yml and with just a few lines and an appropriately scoped .gitignore I was able to extract the login config on every run without exposing my credentials. 
+
+Once I had all that in place I figured it was time to give it a test. I ran `go run main.go`, sprinted to the front of the house and, lo and behold, the front flower bed sprinklers were going full blast. Awesome. 
 
 ## Writing the Provider 
 
 ## Closing Thoughts
 
-I'll fully acknowledge that most aspects of this project were rather contrived. First, the app already had a very functional client for accomplishing the desired operations. Next, the very premise of running your sprinkler system from your CLI is probably something that only appeals to a subset of software professionals so the number of people who would conceiveably ever use this is extremely low. Probably only me. Finally, the resource itself that I implemented doesn't make a ton of sense in Terraform for the simple reason that it was stateless. When you run a sprinkler zone, it runs for a few minutes and never again unless you manually run it...so tracking the state is largely pointless. It would have been a bit more prudent to implement some of the schedule features in the provider, but I didn't because it's far more rewarding to see your sprinklers instantaneously pop up out of the ground at the click of the keyboard than it is to have a schedule run 12 hours later. 
+I'll fully acknowledge that most aspects of this project were rather contrived. First, the app already had a very functional client for accomplishing the desired operations. Next, the very premise of running your sprinkler system from your CLI is probably something that only appeals to a subset of software professionals, so the number of people who would conceiveably ever use this is extremely low. Probably only me. Finally, the resource itself that I implemented doesn't make a ton of sense in Terraform for the simple reason that it was stateless. When you run a sprinkler zone, it runs for a few minutes and never again unless you manually run it...so tracking the state is largely pointless. It would have been a bit more prudent to implement some of the watering-schedule features in the provider, but I didn't because it's far more rewarding to see your sprinklers instantaneously pop up out of the ground at the click of a button than it is to have a schedule run 12 hours later. 
 
-All that being said, I had a blast with this project. I use Terraform on a regular basis as part of my professional capacity, so getting to 
+If you want to check out the code for this project you can find the [Orbit Bhyve Go API Client here](https://github.com/gillcaleb/orbit-bhyve-go-client/tree/main) and the [Terraform Provider here](https://github.com/gillcaleb/terraform-provider-orbit-bhyve). I'll add the obligatory disclaimer that both of these repos are purely prototypes and in no way complete or production ready - I don't think I wrote a single test the entire time. 
+
+All that being said, I had a blast with this project. I use Terraform on a regular basis in my professional capacity, so getting to do a soup-to-nuts implementation was extremely informative and my hope is that it better equips me to contribute to "real" Terraform providers in the future. Thanks for reading this far -- I hope you enjoyed it as much as I did. 'til next time! 
 
