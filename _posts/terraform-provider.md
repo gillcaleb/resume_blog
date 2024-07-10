@@ -105,15 +105,19 @@ resource "bhyve_zone" "zone" {
 
 When I ran `terraform apply` against this, I got the following output from the CLI:
 
+![terraform cli](/assets/blog/terraform-provider/cli.png)
 
+Once again I sprinted to the front of my house just in time to see the sprinklers spring into action.
 
-Once again I sprinted to the front of my house just in time to see the sprinklers spring into action. Success!!
+![running sprinklers](/assets/blog/terraform-provider/sprinklers.png)
+
+Success!!
 
 ## Closing Thoughts
 
 I'll fully acknowledge that most aspects of this project were rather contrived. First, the app already had a very functional client for accomplishing the desired operations. Next, the very premise of running your sprinkler system with Terraform is probably something that only appeals to a tiny subset of software professionals, so the number of people who would conceiveably ever use this is extremely low. Probably only me. Finally, the resource itself that I implemented doesn't make a ton of sense in Terraform for the simple reason that it is more or less stateless. When you run a sprinkler zone, it runs for a few minutes and never again unless you manually run it...so tracking the state is largely pointless. It would have been a bit more prudent to implement some of the watering-schedule features in the provider, but I didn't because it's far more rewarding to see your sprinklers instantaneously pop up out of the ground at the click of a button than it is to have a schedule run 12 hours later. 
 
-If you want to check out the code for this project you can find the [Orbit Bhyve Go API Client here](https://github.com/gillcaleb/orbit-bhyve-go-client/tree/main) and the [Terraform Provider here](https://github.com/gillcaleb/terraform-provider-orbit-bhyve). I'll add the obligatory disclaimer that both of these repos are purely prototypes and in no way complete or production ready - I don't think I wrote a single test the entire time. 
+If you want to check out the code for this project you can find the [Orbit Bhyve Go API Client here](https://github.com/gillcaleb/orbit-bhyve-go-client/tree/main) and the [Terraform Provider here](https://github.com/gillcaleb/terraform-provider-orbit-bhyve). I'll add the obligatory disclaimer that both of these repos are purely prototypes and in no way complete or production ready - there's lots of unsued boilerplate/template code still in there and I don't think I wrote a single test the entire time. 
 
 All that being said, I had a blast with this project. I use Terraform on a regular basis in my professional capacity, so getting to do a soup-to-nuts implementation was extremely informative and my hope is that it better equips me to contribute to "real" Terraform providers in the future. Thanks for reading this far -- I hope you enjoyed it as much as I did. 'til next time! 
 
