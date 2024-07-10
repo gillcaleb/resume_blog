@@ -1,10 +1,10 @@
 ---
 title: 'Writing a Terraform Provider For My Sprinkler System'
 excerpt: 'Because what is the point of Terraform if you do not use it to terraform'
-coverImage: '/assets/blog/terraform-provider/cover.jpg'
+coverImage: '/assets/blog/terraform-provider/cover.png'
 date: '2024-07-09'
 ogImage:
-  url: '/assets/blog/terraform-provider/cover.jpg'
+  url: '/assets/blog/terraform-provider/cover.png'
 ---
 
 This past spring, I had an Orbit Bhyve Outdoor system timer added to my home's sprinkler system. I've never owned an irrigation system before and now that it's operational I've been having wayyyyy too much fun playing around with the different settings. The timer comes with a relatively straightforward mobile app and web interface that lets you do things like set schedules and run ad hoc sprinkler sessions. 
