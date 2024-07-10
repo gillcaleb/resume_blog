@@ -60,7 +60,27 @@ I won't lie, the idea of starting from a blank slate with my provider was a litt
 
 My primary goal was to implement a single resource,`bhyve_zone`, that would accept a ZoneID and a number of minutes as the input. 
 
-**Schema is important**. Schemas are defined for the root provider itself, along with Data and Resources as well. If you don't have a solid idea as to *how* your data needs to be structured and the format in which it is expected then you need to take a step back and re-evaluate all the different configuration possibilities. In my case this was pretty simple: for the provider it was just the login information and for the bhyve_zone resource it was a ZoneID and a number of Minutes. For the resource I also figured I'd play around with the Terraform concept of 'Computed' attributes - these are values that can not be directly manipulated by the user. I used the example attribute from the tutorial library: last_updated, in case I wanted to know when a particular sprinkler last ran. 
+**Schema is important**. Schemas are defined for the root provider itself, along with Data and Resources as well. If you don't have a solid idea as to *how* your data needs to be structured and the format in which it is expected then you need to take a step back and re-evaluate all the different configuration possibilities. In my case this was pretty simple: for the provider it was just the login information and for the bhyve_zone resource it was a ZoneID and a number of Minutes. For the resource I also figured I'd play around with the Terraform concept of 'Computed' attributes - these are values that can not be directly manipulated by the user. I used the example attribute from the tutorial library: last_updated, in case I wanted to know when a particular sprinkler last ran. Here's an example from my code:
+
+```
+resp.Schema = schema.Schema{
+			Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+							Required: true,
+					},
+					"last_updated": schema.StringAttribute{
+							Computed: true,
+					},
+					"minutes": schema.StringAttribute{
+						  Required: true,
+					},					
+			},
+	}
+```
+
+**Keep track of your Configure functions**. It took me some trail and error before it clicked that the `Configure` function is how the Data and Resource objects access the API client defined in the `provider.go`. When I ran my first `terraform apply` I actually got a successful output....except my sprinklers didn't turn on. After digging into the code I realized that while I defined a new client, I had never actually initialized it in the `provider.go`. Doh!
+
+**Think carefully about how you want the state to change**. This was probably the biggest revelation to me when I saw how it works under the hood. I'm not entirely sure what I thought was happening within a provider previously, but I think I assumed that the API client responses shouldered a larger share of the state updates. Assuming your API client is sensibly configured, by far the most challenging part of defining your CRUD functions are figuring out exactly how the state needs to change based on the input and the action, and then making sure that is reflected back into the state. Like you would with a finite state machine, I would suggest drawing out a diagram and what the expected state would be at each stage. Bear in mind that state can change outside of a Terraform, so these runs are also about forcing the resources back into alignment with the statefile. 
 
 ## Closing Thoughts
 
