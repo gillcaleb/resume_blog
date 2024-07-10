@@ -109,7 +109,7 @@ When I ran `terraform apply` against this, I got the following output from the C
 
 Once again I sprinted to the front of my house just in time to see the sprinklers spring into action.
 
-![running sprinklers](/assets/blog/terraform-provider/sprinklers.png)
+![running sprinklers](/assets/blog/terraform-provider/sprinklers.jpg)
 
 Success!!
 
