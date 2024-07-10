@@ -70,10 +70,10 @@ My primary goal was to implement a single resource,`bhyve_zone`, that would acce
 resp.Schema = schema.Schema{
 			Attributes: map[string]schema.Attribute{
 					"id": schema.StringAttribute{
-                                                  Required: true,
+              Required: true,
 					},
 					"last_updated": schema.StringAttribute{
-                                                  Computed: true,
+              Computed: true,
 					},
 					"minutes": schema.StringAttribute{
 						  Required: true,
