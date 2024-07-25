@@ -33,7 +33,7 @@ Terraform providers (and their associated clients) are written almost exclusivel
 
 It's been a while since I've written anything substantive in Go, so I was a little rusty on some of the syntax. For the scope of this project I was mainly interested in one action: turning on a sprinkler. Under the hood, the API call for this action is pretty straightforward - you just need to pass it a ZoneID and the number of minutes you want it to run, along with some static values. I called this function `StartZone`. We'll see in a second, but the API client ideally supports CRUD operations. The "create" and "update" in my case are the same function: `StartZone` (calling `StartZone` on a running zone just updates the time to the new value). 
 
-```
+```go:client.go
 func (c *Client) StartZone(zoneId, minutes int) error {
     conn, err := c.ws.Connect(c.token, c.config.DeviceId)
     if err != nil {

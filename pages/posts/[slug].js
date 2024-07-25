@@ -10,6 +10,8 @@ import { getPostBySlug, getAllPosts } from '../../lib/api'
 import PostTitle from '../../components/post-title'
 import Head from 'next/head'
 import markdownToHtml from '../../lib/markdownToHtml'
+import rehypePrism from 'rehype-prism-plus';
+import rehypeCodeTitles from 'rehype-code-titles';
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter()
@@ -60,7 +62,15 @@ export async function getStaticProps({ params }) {
     'coverImage',
     'showMortgageRate'
   ])
-  const content = await markdownToHtml(post.content || '')
+  
+  //const content = await markdownToHtml(post.content || '')
+
+  const content = await serialize(post.content, { mdxOptions: {
+    rehypePlugins: [
+        rehypeCodeTitles,
+        rehypePrism
+    ]
+  } });
 
   return {
     props: {
