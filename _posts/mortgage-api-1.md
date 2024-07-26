@@ -5,7 +5,7 @@ coverImage: '/assets/blog/mortgage-api-1/cover.png'
 date: '2023-03-17'
 ogImage:
   url: '/assets/blog/mortgage-api-1/cover.png'
-showMortgageRate: true
+#showMortgageRate: true
 ---
 
 Tada! The date and mortgage rate you see in the card was pulled from the Freddie Mac website dynamically via an API call. 
