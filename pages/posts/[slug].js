@@ -12,6 +12,7 @@ import Head from 'next/head'
 import markdownToHtml from '../../lib/markdownToHtml'
 import rehypePrism from 'rehype-prism-plus';
 import rehypeCodeTitles from 'rehype-code-titles';
+import { MDXRemote } from 'next-mdx-remote'
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter()
@@ -43,7 +44,8 @@ export default function Post({ post, morePosts, preview }) {
                 
               />
               {showMortgageRate && <MortgageRateCard />}
-              <PostBody content={post.content} />
+              <MDXRemote content={post.content} />
+              
             </article>
           </>
         )}
