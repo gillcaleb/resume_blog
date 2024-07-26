@@ -45,7 +45,7 @@ export default function Post({ post, morePosts, preview }) {
                 
               />
               {showMortgageRate && <MortgageRateCard />}
-              <MDXRemote content={post.content} />
+              <MDXRemote {...post.content} />
               
             </article>
           </>
