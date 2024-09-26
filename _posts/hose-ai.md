@@ -23,6 +23,18 @@ I'll admit, I just kind of assumed that someone somewhere had already invented a
 
 They had a few different varities but I ended up going with the 3 wire option so that I'd be able to turn it on and off without having to supply constant power. I was also intrigued by the fact that it could be powered by 9-24V AC/DC power. I have a bit of an embarrassing thing to admit: AC power scares me. As someone who once planned to major in electrical engineering this admission is all the more humiliating. I could just never quite get the hang of Kerchoff's law, and as such, I have since lived in perpetual fear of touching a live wire. For that reason, I always try to use the absolutely minimum amount of required power. In this case, a 9V battery didn't seem too intimidating and would theoretically fit the bill. 
 
+As nice as it would be, you unfortunately cannot just directly connect the GPIO pins to the valve input pins and call it a day. In order to power the motor in the valve, I knew I'd need another component beyond just a battery and a motor in order to implement the desired logic. What I needed was a way to control the current supply to the motor (the battery) via voltage (the GPIO pin output). Enter the MOSFET. If I speak too much about MOSFETs I'll quickly end up in over my depth but at a high level, they enable you to control the flow of electricity from the source and drain terminals by changing the amount of voltage applied at the gate terminal. Awesome. 
+
+I bought a MOSFET off Amazon and with a bit of research came up with this diagram. 
+
+[] picture of circuit. 
+
+Cool. I set about wiring it all up but quickly realized that I'd forgotten to procure a connector for my 9V battery. Because I couldn't be bothered to spend $2 and way a few days. I figured I'd try to make my own. Turns out, however, that if you're willing to sacrifice a 9V battery, you can rip the top off of it and solder on a +/- lead to make your own. Neat stuff. 
+
+[] picture of makeshift connector
+
+I wired it all up, ran a simple GPIO pin output test and......nothing happend. Ugh. I reran the code a few times and I noticed that there was a very faint clicking sound coming from the motor. To test and see if my motor was working at all, I connected it directly to the battery and the motor turned just fine. After reading through various electronics forums a common theme is that the gate voltage needed for a MOSFET to functionally work is often higher than the advertised value. For my particular model of MOSFET it seemed as though the common consensus is that you'd need at least 4.5V...which was a bummer because the Pi GPIO pin maxes out at 3.3V. I found a few example circuits on these forums that would theoretically overcome this by means of stepping up the voltage by using the 9V battery as the gate voltage which could then be controlled by a transistor with a lower gate voltage threshold and so forth. I tried a few of these circuits to no avail. I can't remember where I found it but ultimately decided to take the advice of a user who urged against "arcane, Rube Goldberg kluges" in favor of just buying a MOSFET with a gate threshold voltage that would work with 3.3V of input. Once it arrived I swapped it in and BOOM, it turned the valve on the very first time I ran the code. 
+
 # The Software
 
 # The Model
