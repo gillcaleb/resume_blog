@@ -48,18 +48,25 @@ Edge Impulse allows you to do live classification, which was really cool to see 
 
 [] image of handsome
 
-Yes the image is upside down (because of the way the Pi Camera hangs) but an upside down Caleb triggers a valve just a well as a right side up one. 
+Yes the image is upside down (because of the way the Pi Camera hangs) but an upside down Caleb will actuate a motorized ball valve just a well as a right side up one. 
 
 # The Software
 
 # The Result
+Here was my high tech setup:
+
+[] image of the circuit and camera
+
+And here was the end result
+
+[] image of me getting sprayed. 
 
 # My Takeaways
 The barrier of entry to doing a project like this has come down **significantly** in the recent past. I've had a kernel of this idea for quite some time, but the amount of time and effort always seemed insurmountable. With the rise of ML-as-a-service platforms, AI code assistants, and GenAI chatbots, that which would have taken highly specialized knowledge and a great degree of time even 5 years ago can now be prototyped fairly rapidly with a modest degree of know-how. 
 
 That "disruption" in ease of access doesn't feel symmetric though. The hardware/electrical engineering resources available seem to really lag compared to the software. This definitely feels like a sector that is ripe for "education disruption", particularly if/when robotics has it's "GenAI" moment. 
 
-What I found really compelling about this project is that the three major components (The Hardware, Software, and Model) are essentially modular, making the possible applications nearly limitless. For example, I could change the hardware to be a smartlock than unlocks when it sees my face. I could change the software to send me a text message alerting me to the presence of an intruder. I could change the model to be of any human BUT me. You get the idea. Imagine an infrared camera that detects when infants sleeping in a hospital NICU spike a fever, alerting the staff and potentially saving a life: still the same three basic components. 
+What I found really compelling about this project is that the three major components (The Hardware, Software, and Model) are more or less modular, making the possible applications nearly limitless. For example, I could change the hardware to be a smartlock than unlocks when it sees my face. I could change the software to send me a text message alerting me to the presence of an intruder. I could change the model to be of any human BUT me. You get the idea. Imagine an infrared camera that detects when infants sleeping in a hospital NICU spike a fever, alerting the staff and potentially saving a life: still the same three basic components. 
 
 Finally, be careful what images you share of yourself online because your enemies (or friends) may use them to train ML models to spray you with their garden hoses. 
 
