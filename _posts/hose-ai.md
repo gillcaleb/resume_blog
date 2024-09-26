@@ -40,7 +40,11 @@ The proliferation of ML related tools over the last few years has been impressiv
 
 For the object in question I chose...myself. Which may seem like a foolhardy thing to do but I found it difficult to convince anyone else to be the test subject for a project that would result in them getting drenched. I suppose it was also a form of penance for all the times growing up that I would place a rubberband around the sprayer handle on the kitchen sink in my childhood home so that it would spray my family members when they went to get a drink of water. 
 
-I ended up choosing Edge Impulse given it's built-in compatibility with my Raspberry Pi 4. What was really cool is that once I installed the client library on my Pi, it allowed me to do live image capture directly from the device. As a funny aside, it required button click to take the picture. Since I wanted to be in frame, I pasted this javascript snippet into the console on the page so that it would automatically "press the button" every 15 seconds. 
+For the specific ML tool, I ended up choosing Edge Impulse given it's built-in compatibility with my Raspberry Pi 4. What was really cool is that once I installed the client library on my Pi, it allowed me to do live image capture directly from the device. As a funny aside, it required button click to take the picture. Since I wanted to be in frame, I pasted this javascript snippet into the console on the page so that it would automatically "press the button" every 15 seconds.
+
+```
+javascript snippet button press
+```
 
 Once I had that running I basically milled about in front of the camera for several minutes in a variety of poses to get enough content to train the model. I'm sure it looked pretty ridiculous. At one point I even dragged my trashcan into the frame to provide some variety to the model. But ultimately I collected about 50 pictures, labeled them, and then built the model from that. 
 
