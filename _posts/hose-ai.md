@@ -27,7 +27,7 @@ As nice as it would be, you unfortunately cannot just directly connect the GPIO 
 
 I bought a MOSFET online and with a bit of research came up with this diagram. 
 
-![circuit](/assets/blog/hose-ai/circuit.mov)
+![circuit](/assets/blog/hose-ai/circuitanimation.gif)
 
 I set about wiring it all up but quickly realized that I'd forgotten to procure a connector for my 9V battery. Because I couldn't be bothered to spend $2 and wait a few days, I figured I'd try to make my own. Turns out that if you're willing to sacrifice another 9V battery you can rip the top off of it, solder on a +/- lead and you're good to go. Neat stuff. 
 
@@ -52,7 +52,7 @@ Once my camera was snapping away every 15 seconds, I basically just milled about
 
 Edge Impulse allows you to do live classification, which was really cool to see the model at work in real time: 
 
-![inference](/assets/blog/hose-ai/handsome.mov)
+![inference](/assets/blog/hose-ai/handsomeanimation.gif)
 
 Yes the image is upside down (because of the way the Pi Camera hangs in my setup) but an upside down Caleb will actuate a motorized ball valve just as well as a right side up one. 
 
