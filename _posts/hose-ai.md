@@ -27,7 +27,7 @@ As nice as it would be, you unfortunately cannot just directly connect the GPIO 
 
 I bought a MOSFET online and with a bit of research came up with this diagram. 
 
-![circuit](/assets/blog/hose-ai/circuitanimation.gif)
+![circuit](/assets/blog/hose-ai/fullcircuit.gif)
 
 I set about wiring it all up but quickly realized that I'd forgotten to procure a connector for my 9V battery. Because I couldn't be bothered to spend $2 and wait a few days, I figured I'd try to make my own. Turns out that if you're willing to sacrifice another 9V battery you can rip the top off of it, solder on a +/- lead and you're good to go. Neat stuff. 
 
@@ -56,7 +56,7 @@ Edge Impulse allows you to do live classification, which was really cool to see 
 
 Yes the image is upside down (because of the way the Pi Camera hangs in my setup) but an upside down Caleb will actuate a motorized ball valve just as well as a right side up one. 
 
-I do want to take a second to marvel that the model could reliably detect my presence with such a small sample size (~50 images). Now there is a relatively major caveat in that this model is hyperspecific: the frame of the camera doesn't move, I'm wearing the exact same clothes. and there's limited change in the background scenery. If any of those things were to change I would expect marked degradation in the model's performance. Still super cool though. 
+I do want to take a second to marvel that the model could reliably detect my presence with such a small sample size (~50 images). Now there is a relatively major caveat in that this model is hyperspecific: the frame of the camera doesn't move, I'm wearing the exact same clothes. and there's limited change in the background scenery. If any of those things were to substantively change I would expect marked degradation in the model's performance. Still super cool though. 
 
 Every time I showed this off too, I'd lamely feign that the software had come up with that label on it's own. 
 
