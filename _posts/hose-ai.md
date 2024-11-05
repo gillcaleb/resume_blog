@@ -11,7 +11,7 @@ In some part, this project was inspired by my previous effort to build a Terrafo
 
 But what if we could go even further? What if we could devise a means of both selectively choosing the target and delivering a concentrated blast of water to this hypothetical interloper? 
 
-Maybe, just maybe, I could accomplish this via (**dramatic pause**()) ......AI??!?
+Maybe, just maybe, I could accomplish this via (**dramatic pause**) ......AI??!?
 
 ## The Plan
 That was it. Once those charmed words had flickered across my consciousness, I'd crossed the proverbial Rubicon. My initial vision went something like this: I'd use one of the Raspberry Pi's I have lying around to give me the ability to remotely control a motorized valve attached to the end of my garden hose. Then, I'd connect a camera to the Pi to do live image capture. Finally, the crucial bit: I'd train an ML model to do object detection on that live feed, giving me the ability to automatically differeniate between friend and foe in real time, blasting the latter with a spray from the hose while letting the former proceed unbothered. 
