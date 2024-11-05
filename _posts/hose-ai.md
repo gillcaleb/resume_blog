@@ -11,13 +11,19 @@ In some part, this project was inspired by my previous effort to build a Terrafo
 
 But what if we could go even further? What if we could devise a means of both selectively choosing the target and delivering a concentrated blast of water to this hypothetical interloper? 
 
-Maybe, just maybe, I could accomplish this via **dramatic pause** ......AI??!?
+Maybe, just maybe, I could accomplish this via (**dramatic pause**()) ......AI??!?
 
 ## The Plan
-That was it. Once those charmed words had flickered across my brain, I'd crossed the proverbial Rubicon. My initial vision went something like this: I'd use one of the Raspberry Pi's I have lying around to give me the ability to remotely control a motorized valve attached to the end of my garden hose. Then, I'd connect a camera to the Pi to do live image capture. Finally, the crucial bit: I'd train an ML model to do object detection on that live feed, giving me the ability to automatically differeniate between friend and foe in real time, blasting the latter with a spray from the hose while letting the former proceed unbothered. 
+That was it. Once those charmed words had flickered across my consciousness, I'd crossed the proverbial Rubicon. My initial vision went something like this: I'd use one of the Raspberry Pi's I have lying around to give me the ability to remotely control a motorized valve attached to the end of my garden hose. Then, I'd connect a camera to the Pi to do live image capture. Finally, the crucial bit: I'd train an ML model to do object detection on that live feed, giving me the ability to automatically differeniate between friend and foe in real time, blasting the latter with a spray from the hose while letting the former proceed unbothered. 
+
+## The Result
+
+![workingexample](/assets/blog/hose-ai/workingexample.gif)
+
+If you're interested in how I built it, read on! 
 
 ## The Hardware
-I'll admit, I just kind of assumed that someone somewhere had already invented a garden hose valve that could be controlled via GPIO pins. It did take a bit of digging (and U.S. Solid seems to have a near monopoly on this), but in the end I wasn't disappointed as I found a motorized ball valve that could connect to the end of a garden hose:
+I'll admit, I just kind of assumed that someone somewhere had already invented a garden hose valve that could be controlled via GPIO pins. It did take a bit of digging (and U.S. Solid seems to have a near monopoly on this), but in the end I wasn't disappointed as I found a GPIO actuated motorized ball valve that could connect to the end of a garden hose:
 
 ![valve actuator](/assets/blog/hose-ai/valve.png)
 
@@ -33,7 +39,9 @@ I set about wiring it all up but quickly realized that I'd forgotten to procure 
 
 ![makeshiftconnector](/assets/blog/hose-ai/makeshiftconnector.jpg)
 
-I wired it all up, ran a simple GPIO pin output test and......nothing happend. Ugh. I reran the code a few times and I noticed that there was a very faint clicking sound coming from the motor. To test and see if my motor was working at all, I connected it directly to the battery and the valve turned just fine. After reading through various electronics forums, I noticed a common theme that seemed to fit my scenario: oftenimes the gate voltage needed for a MOSFET to functionally work is higher than the advertised value. For my particular model of MOSFET it seemed as though the common consensus was that I'd need at least 4.5V...which was a bummer because the RPi GPIO pin maxes out at 3.3V. I found a few example circuits on these forums that would theoretically overcome this by means of stepping up the voltage (it would use the 9V battery as the gate voltage which could then be controlled by a second transistor with a lower gate voltage threshold and so forth). I tried a few of these circuits to no avail. I can't remember which forum I found it on but ultimately I decided to take the advice of a user who urged against "Rube Goldberg kluges" in favor of just buying a MOSFET with a gate threshold voltage that would actually work with 3.3V of input. Once it arrived I swapped it in and BOOM, it turned the valve on the very first time I ran the code. 
+I wired it all up, ran a simple GPIO pin output test and......nothing happend. Ugh. I reran the code a few times and I noticed that there was a very faint clicking sound coming from the motor. To test and see if my motor was working at all, I connected it directly to the battery and the valve turned just fine. After reading through various electronics forums, I noticed a common theme that seemed to fit my scenario: oftenimes the gate voltage needed for a MOSFET to functionally work is higher than the advertised value. For my particular model of MOSFET it seemed as though the common consensus was that I'd need at least 4.5V...which was a bummer because the RPi GPIO pin maxes out at 3.3V. 
+
+I found a few example circuits on these forums that would theoretically overcome this by means of stepping up the voltage (it would use the 9V battery as the gate voltage which could then be controlled by a second transistor with a lower gate voltage threshold and so forth). I tried a few of these circuits to no avail. I can't remember which forum I found it on but ultimately I decided to take the advice of a user who urged against "Rube Goldberg kluges" in favor of just buying a MOSFET with a gate threshold voltage that would actually work with 3.3V of input. Once it arrived I swapped it in and BOOM, it turned the valve on the very first time I ran the code. 
 
 ## The Model
 The proliferation of ML related tools over the last few years has been impressive to watch. During my initial research I found at least 4 tools that all claimed to accomplish what I was hoping for. Under-the-hood the process for each was more or less the same: you take a bunch of pictures of the thing you want to identify in various settings and from various angles. Then you manually label the "thing" you're hoping to detect. Finally, you pass it through their machine learning algorithm so that it can calibrate the series of weights it uses to build the model that makes a determination as to whether or not the "thing" is in the image or not. This is a gross oversimplification but to go into the weeds of object detection (and machine learning more generally) would take far more time than I have at the present moment. 
@@ -63,14 +71,10 @@ Every time I showed this off too, I'd lamely feign that the software had come up
 ## The Software
 The actual code required to power this was a relatively small lift given how much boilerplate code Edge Impulse gives you out of the gate. I ended up having to stitch together a few different modules as one of their camera modules was no longer compatible with the RPi camera, but even still it was a minor change. Ultimately I went with a simple implementation that would trigger an interrupt function that turns on the hose whenever the presence of the object was detected with >90% confidence and lets it run for a few seconds before turning the hose off again. 
 
-## The Result
-Here was my high tech setup:
+## The Setup
+Pretty high tech, huh?:
 
 ![fullsetup](/assets/blog/hose-ai/fullsetup.jpg)
-
-And here was the end result
-
-![workingexample](/assets/blog/hose-ai/workingexample.gif)
 
 ## Takeaways
 Utimately what I found really compelling about this project is that the three major components (the hardware, the software, and the model) are more or less modular, making the possible applications nearly limitless. For example, I could change the model to detect the various wildlife that routinely decimates my front shrubbery. I could change the hardware to be a smartlock than unlocks when it sees my face. I could change the software to also send me a text message alerting me to the presence of an intruder. You get the idea. Imagine an infrared camera and microphone that alerts parents when an infant sleeping in a crib either spikes a high fever or an irregular cough, speeding up the time-to-intervention and potentially saving lives: still the same three basic components. 
