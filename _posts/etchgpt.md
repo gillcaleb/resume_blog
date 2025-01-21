@@ -7,4 +7,4 @@ ogImage:
   url: '/assets/blog/etchgpt/welcomemsg.gif'
 ---
 
-My plan is to eventually include an even more in-depth technical writeup for this project here, but I'm keeping this as a placeholder. For now though, you can checkout the writeup at [etchgpt.io](https://etchgpt.io)
+My plan is to eventually include an even more in-depth technical writeup for this project here, but I'm keeping this as a placeholder. For now though, you can checkout the writeup at <u>[etchgpt.io](https://etchgpt.io)</u>
